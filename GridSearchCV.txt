@@ -1,0 +1,154 @@
+
+1- GridSearchCV (Grid Search Cross-Validation) is a technique used in machine learning to search and find the optimal combination of hyperparameters for a given model.
+
+2- It systematically explores a predefined set of hyperparameter values, creating a “grid” of possible combinations. 
+
+3- It then evaluates each combination using cross-validation and selects the one that produces the best performance. 
+
+4- GridSearchCV helps in automating the process of hyperparameter tuning, enhancing model performance, and avoiding manual trial-and-error.
+
+5- GridSearchCV is a hyperparameter tuning technique used to find the optimal values of hyperparameters for a given model. 
+
+6- It is a cross-validation technique that helps to loop through predefined hyperparameters and fit the estimator (model) on the training set.
+
+7- Hyperparameters for a model can be chosen using several techniques such as Random Search, Grid Search, Manual Search, Bayesian Optimizations, etc.
+
+8- GridSearchCV uses the Grid Search technique for finding the optimal hyperparameters to increase the model performance.
+
+9-  In the case of random forest, the hyperparameters that can be tuned include:
+9.1- The number of trees in the forest the maximum number of features considered for splitting each node
+9.2- The maximum depth of each tree
+9.3- The maximum number of features considered for splitting each node
+
+****************************************************
+
+GridSearchCV is the process of performing hyperparameter tuning in order to determine the optimal values for a given model. 
+As mentioned above, the performance of a model significantly depends on the value of hyperparameters. 
+Note that there is no way to know in advance the best values for hyperparameters so ideally, we need to try all possible values to know the optimal values. 
+Doing this manually could take a considerable amount of time and resources and thus we use GridSearchCV to automate the tuning of hyperparameters.
+
+****************************************************
+
+in classification problems, the goal is to predict a categorical variable. 
+in regression problems, the goal is to predict a continuous variable. 
+The process of using GridSearchCV for classification and regression problems is similar, but the evaluation metrics used are different
+
+****************************************************
+To use GridSearchCV for classification problems, you need to define the classification algorithm and the hyperparameters to be tuned. 
+The hyperparameters can be defined as a dictionary, where the keys are the hyperparameters and the values are the possible values for each hyperparameter. 
+The GridSearchCV function then performs a search over the hyperparameters to find the best combination of hyperparameters that maximizes the evaluation metric, such as accuracy, precision, recall, or F1-score.
+To prevent overfitting in GridSearchCV, you can use techniques such as cross-validation, regularization, and early stopping. 
+Cross-validation is used to evaluate the performance of the model on unseen data. 
+Regularization is used to reduce the complexity of the model.
+Early stopping is used to stop the training process when the model starts to overfit the training data.
+
+***************************************************
+GridSearchCV is a function that comes in Scikit-learn’s(or SK-learn) model_selection package.
+This function helps to loop through predefined hyperparameters and fit your estimator (model) on your training set. 
+So, in the end, we can select the best parameters from the listed hyperparameters.
+
+***************************************************
+
+how to find these best sets of hyperparameters? 
+1- One can try the Manual Search method, by using the hit and trial process and can find the best hyperparameters which would take huge time to build a single model.
+For this reason, methods like Random Search, GridSearch were introduced. 
+Here, we will discuss how Grid Seach is performed and how it is executed with cross-validation in GridSearchCV.
+
+***************************************************
+
+Cross-Validation and GridSearchCV:
+In GridSearchCV, along with Grid Search, cross-validation is also performed. 
+Cross-Validation is used while training the model. 
+As we know that before training the model with data, we divide the data into two parts – train data and test data. 
+In cross-validation, the process divides the train data further into two parts – the train data and the validation data.
+
+The most popular type of Cross-validation is K-fold Cross-Validation. 
+It is an iterative process that divides the train data into k partitions. 
+Each iteration keeps one partition for testing and the remaining k-1 partitions for training the model. 
+The next iteration will set the next partition as test data and the remaining k-1 as train data and so on. 
+In each iteration, it will record the performance of the model and at the end give the average of all the performance. 
+Thus, it is also a time-consuming process.
+Thus, GridSearch along with cross-validation takes huge time cumulatively to evaluate the best hyperparameters.
+This will cost us the time and expense but will surely give us the best results. 
+
+
+**************************************************
+
+GridSearchCV() method is available in the scikit-learn class model_selection. 
+It can be initiated by creating an object of GridSearchCV():
+clf = GridSearchCv(estimator, param_grid, cv, scoring)
+
+Primarily, it takes 4 arguments:
+1- estimator 
+2-param_grid 
+3- cv 
+4- scoring
+
+1. estimator – A scikit-learn model
+
+2. param_grid – A dictionary with parameter names as keys and lists of parameter values.
+
+3. scoring – The performance measure. For example, ‘r2’ for regression models, ‘precision’ for classification models.
+
+4. cv – An integer that is the number of folds for K-fold cross-validation.
+
+
+**********************************************
+{ 'C': [0.1, 1, 10, 100, 1000],  
+   'gamma': [1, 0.1, 0.01, 0.001, 0.0001], 
+   'kernel': ['rbf',’linear’,'sigmoid']  }
+
+Here C, gamma and kernels are some of the hyperparameters of an SVM model. 
+Note that the rest of the hyperparameters will be set to their default values
+**********************************************
+sklearn.model_selection.GridSearchCV(estimator, param_grid,scoring=None,
+          n_jobs=None, iid='deprecated', refit=True, cv=None, verbose=0, 
+          pre_dispatch='2*n_jobs', error_score=nan, return_train_score=False)
+
+
+1.estimator: Pass the model instance for which you want to check the hyperparameters.
+2.params_grid: the dictionary object that holds the hyperparameters you want to try
+3.scoring: evaluation metric that you want to use, you can simply pass a valid string/ object of evaluation metric
+4.cv: number of cross-validation you have to try for each selected set of hyperparameters
+5.verbose: you can set it to 1 to get the detailed print out while you fit the data to GridSearchCV
+6.n_jobs: number of processes you wish to run in parallel for this task if it -1 it will use all available processors. 
+
+**********************************************
+
+Parameter:
+This is internal to the model.		
+The configuration model’s parameters are internal to the model.	
+Predictions require the use of parameters.	
+Model optimization necessitates the use of hyperparameters.
+These are specified or guessed while the model is being trained.	
+
+Hyperparameter: 
+Hyperparameters are parameters that are explicitly specified and control the training process.
+These are established prior to the start of the model’s training.
+This is external to the model.
+These are learned & set by the model by itself.	
+These are set manually by a machine learning engineer/practitioner.
+
+**********************************************
+
+In summary, GridSearchCV can be used with any machine learning algorithm, including those that involve dimensionality reduction techniques such as PCA, LDA, NMF, and ICA. 
+The choice of dimensionality reduction technique depends on the specific problem and the characteristics of the dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
